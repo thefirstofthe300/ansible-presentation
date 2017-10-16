@@ -1,0 +1,10 @@
+- hosts: yum-hosts
+  become: true
+  tasks:
+    - name: Install telnet and apache
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items: 
+        - telnet
+        - httpd

@@ -1,0 +1,4 @@
+- hosts: yum-hosts
+  become: true
+  tasks:
+    - include: tasks/httpd.yaml

@@ -1,0 +1,15 @@
+--- # My first playbook
+- hosts: yum-hosts
+  become: true
+  tasks:
+    - name: Install Apache web server
+      yum:
+        name: httpd
+        state: latest
+      notify: Restart httpd
+  handlers:
+    - name: Restart httpd 
+      service:
+        name: httpd
+        state: restarted
+

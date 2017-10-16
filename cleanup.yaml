@@ -1,0 +1,20 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Uninstall telnet and Apache (CentOS/RedHat)
+      yum:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - telnet
+        - httpd
+      when: ansible_os_family == "RedHat"
+    - name: Uninstall telnet and Apache (Debian/Ubuntu)
+      apt:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - telnet
+        - apache2
+      when: ansible_os_family == "Debian"
+
