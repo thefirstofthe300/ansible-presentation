@@ -1,0 +1,18 @@
+- hosts: yum-hosts
+  tasks:
+  - name: I'm just gonna ignore that error
+    command: /bin/false
+    ignore_errors: true
+  - name: Attempt and graceful roll back demo
+    block:
+      - debug: msg='I execute normally'
+      - name: Execute /bin/false
+        command: /bin/false
+      - debug: msg='I never execute, due to the above task failing'
+    rescue:
+      - debug: msg='I caught an error'
+      - name: You've reached the rescue block. Enjoy your stay.
+        command: /bin/false
+      - debug: msg='I also never execute :-('
+    always:
+      - debug: msg="this always executes"
